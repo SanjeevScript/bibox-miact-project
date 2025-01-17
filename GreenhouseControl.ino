@@ -1,12 +1,13 @@
 #include <Servo.h>
 
 // Pin Definitions
-const int rainSensorPin = A0;     // Rain sensor analog pin
-const int rainThresholdBase = 500; // Base rain threshold
-const int servoPin = 9;          // Servo motor connected to pin 9
+const int rainSensorPin = A0;     
+const int rainThresholdBase = 500;
+const int heavyRainThreshold = 800;
+const int servoPin = 9;          
 
-Servo roofServo;                 // Servo motor object
-bool isRoofOpen = false;         // Tracks the current state of the roof
+Servo roofServo;                
+bool isRoofOpen = false;         
 unsigned long lastRainTime = 0;  // Tracks the last time rain was detected
 const unsigned long delayDuration = 300000; // 5 minutes delay in milliseconds
 
@@ -29,8 +30,17 @@ void loop() {
   Serial.print("Dynamic Rain Threshold: ");
   Serial.println(dynamicThreshold);
 
-  if (rainValue > dynamicThreshold) {
-    lastRainTime = millis(); // Update last rain time
+  // Check if it's heavy rain
+  if (rainValue > heavyRainThreshold) {
+    Serial.println("Heavy rain detected! Roof will not open.");
+    lastRainTime = millis(); 
+    if (isRoofOpen) {
+      closeRoof();
+    }
+  }
+  
+  else if (rainValue > dynamicThreshold) {
+    lastRainTime = millis(); 
     if (!isRoofOpen) {
       openRoof(); // Open the roof if it's not already open
     }
@@ -52,7 +62,7 @@ void openRoof() {
   Serial.println("Rain detected! Opening the roof...");
   roofServo.write(90); // Rotate servo to 90° to open roof
   isRoofOpen = true;
-  delay(1000); // Ensure stable state
+  delay(1000); 
   Serial.println("Roof is now open.");
 }
 
@@ -60,6 +70,6 @@ void closeRoof() {
   Serial.println("No rain detected for 5 minutes. Closing the roof...");
   roofServo.write(0); // Rotate servo back to 0° to close roof
   isRoofOpen = false;
-  delay(1000); // Ensure stable state
+  delay(1000); 
   Serial.println("Roof is now closed.");
 }
