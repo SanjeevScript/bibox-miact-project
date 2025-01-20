@@ -3,10 +3,10 @@
 This is an Arduino-based project designed to emulate a self-sustainable greenhouse. The project uses various components such as sensors and actuators to open the roof of the greenhouse when it detects rain so it can be self-sustainable.
 ## Hardware Components
 
-- Arduino [Model] (e.g., Arduino Uno)
-- [Component 1] (e.g., Temperature Sensor)
-- [Component 2] (e.g., Servo Motor, LED)
-- [Additional Components] (e.g., Breadboard, Jumper Wires)
+- Arduino Uno
+- Rain Sensor
+- Servo Motor
+- Breadboard, Jumper Wires
 
 ## Software Requirements
 
