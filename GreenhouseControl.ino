@@ -3,7 +3,7 @@
 // Pin Definitions
 const int rainSensorPin = A0;     
 const int rainThresholdBase = 500;
-const int heavyRainThreshold = 800;
+const int heavyRainThreshold = 1000;
 const int servoPin = 9;          
 
 Servo roofServo;                
